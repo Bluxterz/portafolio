@@ -30,11 +30,10 @@ import {
 } from "lucide-react"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
+import { PageLayout } from "@/src/components/layout/PageLayout"
 
 // Animación para elementos que aparecen al hacer scroll
 function useScrollAnimation() {
-  const [elements, setElements] = useState<Element[]>([])
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -51,12 +50,11 @@ function useScrollAnimation() {
     animateElements.forEach((el) => {
       observer.observe(el)
     })
-    setElements(Array.from(animateElements))
 
     return () => {
-      elements.forEach((el) => observer.unobserve(el))
+      animateElements.forEach((el) => observer.unobserve(el))
     }
-  }, [elements])
+  }, [])
 }
 
 // Variantes para animaciones
@@ -82,7 +80,6 @@ const itemFadeIn = {
 
 export default function Home() {
   useScrollAnimation()
-  const [scrolled, setScrolled] = useState(false)
   const [currentExperienceIndex, setCurrentExperienceIndex] = useState(0)
 
   const experiences = [
@@ -144,82 +141,8 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [experienceGroups.length])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
   return (
-    <div className="flex flex-col items-center min-h-screen">
-      {/* Header/Navigation */}
-      <header
-        className={`sticky top-0 z-50 w-full border-b border-transparent transition-all duration-300 ${scrolled ? "border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" : ""
-          }`}
-      >
-        <div className="container mx-auto flex h-16 items-center justify-between">
-          {/* Izquierda: logo */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex-1"
-          >
-            <Link href="#" className="font-bold text-xl gradient-text">
-              Matias Guzman/Bluxterz
-            </Link>
-          </motion.div>
-
-          {/* Centro: navegación */}
-          <nav className="hidden md:flex gap-6 flex-1 justify-center">
-            {["sobre-mí", "habilidades", "proyectos", "contenido", "contacto"].map((item, i) => (
-              <motion.div
-                key={item}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: i * 0.1 }}
-              >
-                <Link
-                  href={`#${item}`}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-red-500"
-                >
-                  {item.charAt(0).toUpperCase() + item.slice(1).replace("-", " ")}
-                </Link>
-              </motion.div>
-            ))}
-          </nav>
-
-          {/* Derecha: CTA */}
-          <div className="flex items-center gap-2 flex-1 justify-end">
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="hidden md:block"
-            >
-              <Button asChild size="sm" className="bg-red-600 hover:bg-red-700 button-hover">
-                <Link href="#contacto">
-                  <Mail className="mr-2 h-4 w-4" />
-                  Contactar
-                </Link>
-              </Button>
-            </motion.div>
-          </div>
-        </div>
-      </header>
-
-
-      <main className="flex-1">
+    <PageLayout>
         {/* Hero Section */}
         <section className="relative overflow-hidden py-24 md:py-32">
           <div className="absolute inset-0 bg-gradient-to-br from-red-50 to-white dark:from-red-950/20 dark:to-background -z-10"></div>
@@ -242,7 +165,7 @@ export default function Home() {
                 </motion.div>
                 <motion.div variants={itemFadeIn} className="flex flex-wrap gap-4">
                   <Button asChild className="bg-red-600 hover:bg-red-700 button-hover">
-                    <Link href="#proyectos">
+                    <Link href="/proyectos">
                       Ver proyectos <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
@@ -1111,9 +1034,8 @@ export default function Home() {
             </motion.div>
           </div>
         </section>
-      </main>
 
-      {/* Footer */}
+        {/* Footer */}
       <footer className="border-t border-red-100 dark:border-red-900/50 py-6 md:py-0">
         <div className="container flex flex-col md:flex-row items-center justify-between gap-4 md:h-16">
           <p className="text-sm text-muted-foreground">
@@ -1142,6 +1064,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </div>
+    </PageLayout>
   )
 }
