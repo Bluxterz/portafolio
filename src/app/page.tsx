@@ -161,58 +161,63 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="flex flex-col items-center max-h-screen">
+    <div className="flex flex-col items-center min-h-screen">
       {/* Header/Navigation */}
       <header
-        className={`sticky top-0 z-50 w-full border-b border-transparent transition-all duration-300 ${
-          scrolled ? "border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" : ""
-        }`}
+        className={`sticky top-0 z-50 w-full border-b border-transparent transition-all duration-300 ${scrolled ? "border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" : ""
+          }`}
       >
-        <div className="container flex h-16 items-center">
+        <div className="container mx-auto flex h-16 items-center justify-between">
+          {/* Izquierda: logo */}
           <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mr-auto"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex-1"
           >
-        <Link href="#" className="font-bold text-xl gradient-text">
-          Matias Guzman/Bluxterz
-        </Link>
-          </motion.div>
-          <nav className="hidden md:flex gap-6 mx-auto">
-        {["sobre-mí", "habilidades", "proyectos", "contenido", "contacto"].map((item, i) => (
-          <motion.div
-            key={item}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: i * 0.1 }}
-          >
-            <Link
-          href={`#${item}`}
-          className="text-sm font-medium text-muted-foreground transition-colors hover:text-red-500"
-            >
-          {item.charAt(0).toUpperCase() + item.slice(1).replace("-", " ")}
+            <Link href="#" className="font-bold text-xl gradient-text">
+              Matias Guzman/Bluxterz
             </Link>
           </motion.div>
-        ))}
+
+          {/* Centro: navegación */}
+          <nav className="hidden md:flex gap-6 flex-1 justify-center">
+            {["sobre-mí", "habilidades", "proyectos", "contenido", "contacto"].map((item, i) => (
+              <motion.div
+                key={item}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: i * 0.1 }}
+              >
+                <Link
+                  href={`#${item}`}
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-red-500"
+                >
+                  {item.charAt(0).toUpperCase() + item.slice(1).replace("-", " ")}
+                </Link>
+              </motion.div>
+            ))}
           </nav>
-          <div className="flex items-center gap-2 ml-auto">
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="hidden md:block"
-        >
-          <Button asChild size="sm" className="bg-red-600 hover:bg-red-700 button-hover">
-            <Link href="#contacto">
-          <Mail className="mr-2 h-4 w-4" />
-          Contactar
-            </Link>
-          </Button>
-        </motion.div>
+
+          {/* Derecha: CTA */}
+          <div className="flex items-center gap-2 flex-1 justify-end">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="hidden md:block"
+            >
+              <Button asChild size="sm" className="bg-red-600 hover:bg-red-700 button-hover">
+                <Link href="#contacto">
+                  <Mail className="mr-2 h-4 w-4" />
+                  Contactar
+                </Link>
+              </Button>
+            </motion.div>
           </div>
         </div>
       </header>
+
 
       <main className="flex-1">
         {/* Hero Section */}
@@ -292,7 +297,7 @@ export default function Home() {
               >
                 <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-red-200 dark:border-red-900/50 shadow-lg shadow-red-100 dark:shadow-red-900/20">
                   <Image
-                    src="/placeholder.svg?height=256&width=256"
+                    src="/img/foto.jpg?height=500&width=500"
                     alt="Tu foto de perfil"
                     fill
                     className="object-cover"
@@ -396,9 +401,8 @@ export default function Home() {
                     {experienceGroups.map((_, index) => (
                       <button
                         key={index}
-                        className={`w-2 h-2 rounded-full transition-colors ${
-                          index === currentExperienceIndex ? "bg-red-500" : "bg-red-200"
-                        }`}
+                        className={`w-2 h-2 rounded-full transition-colors ${index === currentExperienceIndex ? "bg-red-500" : "bg-red-200"
+                          }`}
                         onClick={() => setCurrentExperienceIndex(index)}
                       />
                     ))}
