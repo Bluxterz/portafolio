@@ -19,7 +19,6 @@ import {
   Twitter,
   Mail,
   ArrowRight,
-  ExternalLink,
   Terminal,
   Database,
   Globe,
@@ -27,10 +26,13 @@ import {
   FileCode,
   MonitorSmartphone,
   ChevronDown,
+  Instagram,
 } from "lucide-react"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { PageLayout } from "@/src/components/layout/PageLayout"
+import { ProjectPreviewCard } from "@/src/components/ui/ProjectPreviewCard"
+import { ShimmerButton } from "@/src/components/ui/shimmer-button"
 
 // Animación para elementos que aparecen al hacer scroll
 function useScrollAnimation() {
@@ -143,9 +145,9 @@ export default function Home() {
 
   return (
     <PageLayout>
-        {/* Hero Section */}
-        <section className="relative overflow-hidden py-24 md:py-32">
-          <div className="absolute inset-0 bg-gradient-to-br from-red-50 to-white dark:from-red-950/20 dark:to-background -z-10"></div>
+        <section className="py-24 md:py-32 overflow-hidden relative">
+
+
           <div className="container relative z-10">
             <motion.div
               initial="hidden"
@@ -164,11 +166,11 @@ export default function Home() {
                   </p>
                 </motion.div>
                 <motion.div variants={itemFadeIn} className="flex flex-wrap gap-4">
-                  <Button asChild className="bg-red-600 hover:bg-red-700 button-hover">
-                    <Link href="/proyectos">
+                  <Link href="/proyectos">
+                    <ShimmerButton className="font-medium">
                       Ver proyectos <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
+                    </ShimmerButton>
+                  </Link>
                   <Button
                     variant="outline"
                     asChild
@@ -179,16 +181,16 @@ export default function Home() {
                 </motion.div>
                 <motion.div variants={itemFadeIn} className="flex gap-4">
                   {[
-                    { icon: <Github className="h-5 w-5" />, href: "https://github.com/tunombre", label: "GitHub" },
+                    { icon: <Github className="h-5 w-5" />, href: "https://github.com/bluxterz", label: "GitHub" },
                     {
                       icon: <Linkedin className="h-5 w-5" />,
-                      href: "https://linkedin.com/in/tunombre",
+                      href: "https://linkedin.com/in/bluxterz",
                       label: "LinkedIn",
                     },
-                    { icon: <Twitter className="h-5 w-5" />, href: "https://twitter.com/tunombre", label: "Twitter" },
+                    { icon: <Twitter className="h-5 w-5" />, href: "https://twitter.com/bluxterz", label: "Twitter" },
                     {
                       icon: <Youtube className="h-5 w-5" />,
-                      href: "https://youtube.com/@tunombre",
+                      href: "https://youtube.com/@bluxterz",
                       label: "YouTube",
                     },
                   ].map((social) => (
@@ -247,806 +249,651 @@ export default function Home() {
             </motion.div>
           </div>
         </section>
+      
 
-        {/* About Section */}
-        <section id="sobre-mí" className="relative py-16">
-          <div className="absolute inset-0 bg-gradient-to-br from-red-50/50 to-white/50 dark:from-red-950/10 dark:to-background/50 -z-10"></div>
-          <div className="container space-y-8">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeIn}
-              className="space-y-2 text-center"
-            >
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">Sobre mí</h2>
-              <p className="text-muted-foreground">Mi trayectoria profesional y experiencia</p>
-            </motion.div>
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={staggerContainer}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8"
-            >
-              <motion.div variants={itemFadeIn} className="space-y-4">
-                <h3 className="text-2xl font-bold">Mi historia</h3>
-                <p className="text-muted-foreground">
-                  Soy Matías Guzmán, Ingeniero Civil en Informática y Telecomunicaciones egresado de la Universidad
-                  Diego Portales. Mi trayectoria profesional se ha enfocado en el desarrollo de software, ciberseguridad
-                  y liderazgo de proyectos tecnológicos.
-                </p>
-                <p className="text-muted-foreground">
-                  He trabajado en proyectos de modernización de arquitecturas, implementando soluciones basadas en
-                  microfrontends y microservicios. Mi experiencia incluye consultoría en ciberseguridad, auditorías
-                  según ISO 27001, y desarrollo de aplicaciones web con tecnologías modernas como Next.js, React y
-                  TypeScript.
-                </p>
-                <p className="text-muted-foreground">
-                  Complemento mi perfil técnico como creador de contenido digital bajo la marca "Bluxterz", donde he
-                  construido una comunidad de más de 15,000 seguidores en múltiples plataformas, desarrollando
-                  habilidades de comunicación, liderazgo e innovación.
-                </p>
-              </motion.div>
-              <motion.div variants={itemFadeIn} className="space-y-4">
-                <h3 className="text-2xl font-bold">Experiencia profesional</h3>
-                <div className="relative overflow-hidden">
-                  <motion.div
-                    className="flex transition-transform duration-500 ease-in-out"
-                    animate={{
-                      x: `${-currentExperienceIndex * 100}%`,
-                    }}
-                  >
-                    {experienceGroups.map((group, groupIndex) => (
-                      <div key={groupIndex} className="w-full flex-shrink-0 space-y-4">
-                        {group.map((job, i) => (
-                          <motion.div
-                            key={i}
-                            className="border-l-4 border-red-500 pl-4 space-y-1"
-                            initial={{ x: -10, opacity: 0 }}
-                            whileInView={{ x: 0, opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
-                          >
-                            <h4 className="font-bold">{job.title}</h4>
-                            <p className="text-sm text-muted-foreground">
-                              {job.company} • {job.period}
-                            </p>
-                            <p className="text-muted-foreground">{job.description}</p>
-                          </motion.div>
-                        ))}
-                      </div>
-                    ))}
-                  </motion.div>
-
-                  {/* Indicators */}
-                  <div className="flex justify-center mt-4 space-x-2">
-                    {experienceGroups.map((_, index) => (
-                      <button
-                        key={index}
-                        className={`w-2 h-2 rounded-full transition-colors ${index === currentExperienceIndex ? "bg-red-500" : "bg-red-200"
-                          }`}
-                        onClick={() => setCurrentExperienceIndex(index)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Skills Section */}
-        <section id="habilidades" className="py-16 container">
-          <div className="space-y-8">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeIn}
-              className="space-y-2 text-center"
-            >
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">
-                Mis habilidades
-              </h2>
+      {/* About Section */}
+      <section id="sobre-mí" className="relative py-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-red-50/50 to-white/50 dark:from-red-950/10 dark:to-background/50 -z-10"></div>
+        <div className="container space-y-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeIn}
+            className="space-y-2 text-center"
+          >
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">Sobre mí</h2>
+            <p className="text-muted-foreground">Mi trayectoria profesional y experiencia</p>
+          </motion.div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
+            <motion.div variants={itemFadeIn} className="space-y-4">
+              <h3 className="text-2xl font-bold">Mi historia</h3>
               <p className="text-muted-foreground">
-                Competencias en desarrollo, ciberseguridad y creación de contenido
+                Soy Matías Guzmán, Ingeniero Civil en Informática y Telecomunicaciones egresado de la Universidad
+                Diego Portales. Mi trayectoria profesional se ha enfocado en el desarrollo de software, ciberseguridad
+                y liderazgo de proyectos tecnológicos.
+              </p>
+              <p className="text-muted-foreground">
+                He trabajado en proyectos de modernización de arquitecturas, implementando soluciones basadas en
+                microfrontends y microservicios. Mi experiencia incluye consultoría en ciberseguridad, auditorías
+                según ISO 27001, y desarrollo de aplicaciones web con tecnologías modernas como Next.js, React y
+                TypeScript.
+              </p>
+              <p className="text-muted-foreground">
+                Complemento mi perfil técnico como creador de contenido digital bajo la marca "Bluxterz", donde he
+                construido una comunidad de más de 15,000 seguidores en múltiples plataformas, desarrollando
+                habilidades de comunicación, liderazgo e innovación.
               </p>
             </motion.div>
-
-            <Tabs defaultValue="development" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 bg-red-50 dark:bg-red-950/20">
-                <TabsTrigger
-                  value="development"
-                  className="data-[state=active]:bg-red-600 data-[state=active]:text-white"
-                >
-                  <Code className="mr-2 h-4 w-4" />
-                  Desarrollo
-                </TabsTrigger>
-                <TabsTrigger value="security" className="data-[state=active]:bg-red-600 data-[state=active]:text-white">
-                  <ShieldCheck className="mr-2 h-4 w-4" />
-                  Ciberseguridad
-                </TabsTrigger>
-                <TabsTrigger value="content" className="data-[state=active]:bg-red-600 data-[state=active]:text-white">
-                  <Youtube className="mr-2 h-4 w-4" />
-                  Contenido
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="development" className="mt-6">
+            <motion.div variants={itemFadeIn} className="space-y-4">
+              <h3 className="text-2xl font-bold">Experiencia profesional</h3>
+              <div className="relative overflow-hidden">
                 <motion.div
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={staggerContainer}
-                  className="grid grid-cols-1 md:grid-cols-3 gap-6"
+                  className="flex transition-transform duration-500 ease-in-out"
+                  animate={{
+                    x: `${-currentExperienceIndex * 100}%`,
+                  }}
                 >
-                  {[
-                    {
-                      icon: <Globe className="h-6 w-6 text-red-600" />,
-                      title: "Desarrollo Web",
-                      subtitle: "Frontend & Backend",
-                      skills: ["HTML/CSS", "JavaScript", "React", "Node.js", "Next.js", "TypeScript"],
-                    },
-                    {
-                      icon: <MonitorSmartphone className="h-6 w-6 text-red-600" />,
-                      title: "Desarrollo Móvil",
-                      subtitle: "Apps nativas e híbridas",
-                      skills: ["React Native", "Flutter", "Swift", "Kotlin"],
-                    },
-                    {
-                      icon: <Database className="h-6 w-6 text-red-600" />,
-                      title: "Bases de Datos",
-                      subtitle: "SQL & NoSQL",
-                      skills: ["PostgreSQL", "MySQL", "MongoDB", "Firebase"],
-                    },
-                  ].map((category, i) => (
-                    <motion.div key={i} variants={itemFadeIn} whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
-                      <Card className="card-hover border-red-100 dark:border-red-900/50">
-                        <CardContent className="pt-6">
-                          <div className="flex items-center gap-4">
-                            <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full">{category.icon}</div>
-                            <div>
-                              <h3 className="font-bold">{category.title}</h3>
-                              <p className="text-sm text-muted-foreground">{category.subtitle}</p>
-                            </div>
-                          </div>
-                          <div className="mt-4 space-y-2">
-                            {category.skills.map((skill) => (
-                              <Badge
-                                key={skill}
-                                className="mr-1 bg-red-100 hover:bg-red-200 text-red-800 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50"
-                              >
-                                {skill}
-                              </Badge>
-                            ))}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </TabsContent>
-              <TabsContent value="security" className="mt-6">
-                <motion.div
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={staggerContainer}
-                  className="grid grid-cols-1 md:grid-cols-3 gap-6"
-                >
-                  {[
-                    {
-                      icon: <Lock className="h-6 w-6 text-red-600" />,
-                      title: "Seguridad Ofensiva",
-                      subtitle: "Pentesting & Ethical Hacking",
-                      skills: ["Pentesting Web", "OWASP Top 10", "Burp Suite", "Metasploit"],
-                    },
-                    {
-                      icon: <ShieldCheck className="h-6 w-6 text-red-600" />,
-                      title: "Seguridad Defensiva",
-                      subtitle: "Protección & Monitoreo",
-                      skills: ["Firewall", "IDS/IPS", "SIEM", "Análisis de Malware"],
-                    },
-                    {
-                      icon: <FileCode className="h-6 w-6 text-red-600" />,
-                      title: "DevSecOps",
-                      subtitle: "Seguridad en CI/CD",
-                      skills: ["SAST/DAST", "Análisis de Dependencias", "Contenedores Seguros", "IaC"],
-                    },
-                  ].map((category, i) => (
-                    <motion.div key={i} variants={itemFadeIn} whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
-                      <Card className="card-hover border-red-100 dark:border-red-900/50">
-                        <CardContent className="pt-6">
-                          <div className="flex items-center gap-4">
-                            <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full">{category.icon}</div>
-                            <div>
-                              <h3 className="font-bold">{category.title}</h3>
-                              <p className="text-sm text-muted-foreground">{category.subtitle}</p>
-                            </div>
-                          </div>
-                          <div className="mt-4 space-y-2">
-                            {category.skills.map((skill) => (
-                              <Badge
-                                key={skill}
-                                className="mr-1 bg-red-100 hover:bg-red-200 text-red-800 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50"
-                              >
-                                {skill}
-                              </Badge>
-                            ))}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </TabsContent>
-              <TabsContent value="content" className="mt-6">
-                <motion.div
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={staggerContainer}
-                  className="grid grid-cols-1 md:grid-cols-3 gap-6"
-                >
-                  {[
-                    {
-                      icon: <Youtube className="h-6 w-6 text-red-600" />,
-                      title: "Producción de Video",
-                      subtitle: "Tutoriales & Cursos",
-                      skills: ["Guionización", "Edición de Video", "Animación", "Presentación"],
-                    },
-                    {
-                      icon: <Terminal className="h-6 w-6 text-red-600" />,
-                      title: "Escritura Técnica",
-                      subtitle: "Artículos & Tutoriales",
-                      skills: ["Blogs Técnicos", "Documentación", "Guías Paso a Paso", "Investigación"],
-                    },
-                    {
-                      icon: <Globe className="h-6 w-6 text-red-600" />,
-                      title: "Marketing Digital",
-                      subtitle: "Promoción & Engagement",
-                      skills: ["SEO", "Redes Sociales", "Email Marketing", "Análisis de Audiencia"],
-                    },
-                  ].map((category, i) => (
-                    <motion.div key={i} variants={itemFadeIn} whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
-                      <Card className="card-hover border-red-100 dark:border-red-900/50">
-                        <CardContent className="pt-6">
-                          <div className="flex items-center gap-4">
-                            <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full">{category.icon}</div>
-                            <div>
-                              <h3 className="font-bold">{category.title}</h3>
-                              <p className="text-sm text-muted-foreground">{category.subtitle}</p>
-                            </div>
-                          </div>
-                          <div className="mt-4 space-y-2">
-                            {category.skills.map((skill) => (
-                              <Badge
-                                key={skill}
-                                className="mr-1 bg-red-100 hover:bg-red-200 text-red-800 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50"
-                              >
-                                {skill}
-                              </Badge>
-                            ))}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </TabsContent>
-            </Tabs>
-          </div>
-        </section>
-
-        {/* Projects Section */}
-        <section id="proyectos" className="relative py-16">
-          <div className="absolute inset-0 bg-gradient-to-br from-red-50/50 to-white/50 dark:from-red-950/10 dark:to-background/50 -z-10"></div>
-          <div className="container space-y-8">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeIn}
-              className="space-y-2 text-center"
-            >
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">
-                Proyectos destacados
-              </h2>
-              <p className="text-muted-foreground">Una selección de mis trabajos más relevantes</p>
-            </motion.div>
-
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            >
-              {/* Project 1 */}
-              <motion.div variants={itemFadeIn} whileHover={{ y: -10 }} transition={{ duration: 0.3 }}>
-                <Card className="overflow-hidden card-hover border-red-100 dark:border-red-900/50">
-                  <div className="aspect-video relative">
-                    <Image
-                      src="/placeholder.svg?height=200&width=400"
-                      alt="Proyecto de seguridad web"
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end">
-                      <div className="p-4 text-white">
-                        <h4 className="font-bold">Escáner de Vulnerabilidades</h4>
-                      </div>
-                    </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <h3 className="font-bold text-xl">Escáner de Vulnerabilidades</h3>
-                          <Badge className="bg-red-600">Ciberseguridad</Badge>
-                        </div>
-                        <p className="text-muted-foreground">
-                          Herramienta automatizada para detectar vulnerabilidades en aplicaciones web basada en OWASP
-                          Top 10.
-                        </p>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        <Badge variant="outline" className="border-red-200 dark:border-red-900/50">
-                          Python
-                        </Badge>
-                        <Badge variant="outline" className="border-red-200 dark:border-red-900/50">
-                          OWASP
-                        </Badge>
-                        <Badge variant="outline" className="border-red-200 dark:border-red-900/50">
-                          API REST
-                        </Badge>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          asChild
-                          className="button-hover border-red-200 dark:border-red-900/50"
-                        >
-                          <Link href="#" target="_blank">
-                            <Github className="mr-2 h-4 w-4" />
-                            Código
-                          </Link>
-                        </Button>
-                        <Button size="sm" asChild className="bg-red-600 hover:bg-red-700 button-hover">
-                          <Link href="#" target="_blank">
-                            <ExternalLink className="mr-2 h-4 w-4" />
-                            Demo
-                          </Link>
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              {/* Project 2 */}
-              <motion.div variants={itemFadeIn} whileHover={{ y: -10 }} transition={{ duration: 0.3 }}>
-                <Card className="overflow-hidden card-hover border-red-100 dark:border-red-900/50">
-                  <div className="aspect-video relative">
-                    <Image
-                      src="/placeholder.svg?height=200&width=400"
-                      alt="Aplicación web segura"
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end">
-                      <div className="p-4 text-white">
-                        <h4 className="font-bold">Plataforma E-learning</h4>
-                      </div>
-                    </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <h3 className="font-bold text-xl">Plataforma E-learning</h3>
-                          <Badge className="bg-red-600">Desarrollo</Badge>
-                        </div>
-                        <p className="text-muted-foreground">
-                          Plataforma educativa para cursos de programación y ciberseguridad con autenticación segura.
-                        </p>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        <Badge variant="outline" className="border-red-200 dark:border-red-900/50">
-                          React
-                        </Badge>
-                        <Badge variant="outline" className="border-red-200 dark:border-red-900/50">
-                          Node.js
-                        </Badge>
-                        <Badge variant="outline" className="border-red-200 dark:border-red-900/50">
-                          PostgreSQL
-                        </Badge>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          asChild
-                          className="button-hover border-red-200 dark:border-red-900/50"
-                        >
-                          <Link href="#" target="_blank">
-                            <Github className="mr-2 h-4 w-4" />
-                            Código
-                          </Link>
-                        </Button>
-                        <Button size="sm" asChild className="bg-red-600 hover:bg-red-700 button-hover">
-                          <Link href="#" target="_blank">
-                            <ExternalLink className="mr-2 h-4 w-4" />
-                            Demo
-                          </Link>
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              {/* Project 3 */}
-              <motion.div variants={itemFadeIn} whileHover={{ y: -10 }} transition={{ duration: 0.3 }}>
-                <Card className="overflow-hidden card-hover border-red-100 dark:border-red-900/50">
-                  <div className="aspect-video relative">
-                    <Image
-                      src="/placeholder.svg?height=200&width=400"
-                      alt="Canal de YouTube"
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end">
-                      <div className="p-4 text-white">
-                        <h4 className="font-bold">App de Análisis de Seguridad</h4>
-                      </div>
-                    </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <h3 className="font-bold text-xl">App de Análisis de Seguridad</h3>
-                          <Badge className="bg-red-600">Móvil</Badge>
-                        </div>
-                        <p className="text-muted-foreground">
-                          Aplicación móvil para analizar la seguridad de redes WiFi y dispositivos conectados.
-                        </p>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        <Badge variant="outline" className="border-red-200 dark:border-red-900/50">
-                          React Native
-                        </Badge>
-                        <Badge variant="outline" className="border-red-200 dark:border-red-900/50">
-                          Firebase
-                        </Badge>
-                        <Badge variant="outline" className="border-red-200 dark:border-red-900/50">
-                          Análisis de Red
-                        </Badge>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          asChild
-                          className="button-hover border-red-200 dark:border-red-900/50"
-                        >
-                          <Link href="#" target="_blank">
-                            <Github className="mr-2 h-4 w-4" />
-                            Código
-                          </Link>
-                        </Button>
-                        <Button size="sm" asChild className="bg-red-600 hover:bg-red-700 button-hover">
-                          <Link href="#" target="_blank">
-                            <ExternalLink className="mr-2 h-4 w-4" />
-                            Demo
-                          </Link>
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="flex justify-center mt-8"
-            >
-              <Button
-                variant="outline"
-                asChild
-                className="button-hover border-red-200 dark:border-red-900/50 hover:bg-red-50 dark:hover:bg-red-950/50"
-              >
-                <Link href="https://github.com/Bluxterz" target="_blank">
-                  <Github className="mr-2 h-4 w-4" />
-                  Ver más proyectos en GitHub
-                </Link>
-              </Button>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Content Creation Section */}
-        <section id="contenido" className="py-16 container">
-          <div className="space-y-8">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeIn}
-              className="space-y-2 text-center"
-            >
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">
-                Creación de contenido
-              </h2>
-              <p className="text-muted-foreground">Tutoriales, artículos y recursos educativos</p>
-            </motion.div>
-
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8"
-            >
-              {/* YouTube Channel */}
-              <motion.div variants={itemFadeIn} whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
-                <Card className="card-hover border-red-100 dark:border-red-900/50">
-                  <CardContent className="p-6">
-                    <div className="space-y-6">
-                      <div className="flex items-center gap-4">
-                        <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full">
-                          <Youtube className="h-6 w-6 text-red-600" />
-                        </div>
-                        <div>
-                          <h3 className="font-bold text-xl">Canal de YouTube</h3>
-                          <p className="text-sm text-muted-foreground">Tutoriales y demostraciones técnicas</p>
-                        </div>
-                      </div>
-                      <div className="space-y-4">
+                  {experienceGroups.map((group, groupIndex) => (
+                    <div key={groupIndex} className="w-full flex-shrink-0 space-y-4">
+                      {group.map((job, i) => (
                         <motion.div
-                          whileHover={{ scale: 1.03 }}
-                          transition={{ duration: 0.2 }}
-                          className="border rounded-lg overflow-hidden border-red-100 dark:border-red-900/50"
+                          key={i}
+                          className="border-l-4 border-red-500 pl-4 space-y-1"
+                          initial={{ x: -10, opacity: 0 }}
+                          whileInView={{ x: 0, opacity: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: i * 0.1 }}
                         >
-                          <div className="aspect-video relative">
-                            <Image
-                              src="/placeholder.svg?height=200&width=400"
-                              alt="Video tutorial"
-                              fill
-                              className="object-cover"
-                            />
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="bg-red-600/90 p-4 rounded-full">
-                                <Youtube className="h-8 w-8 text-white" />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="p-4">
-                            <h4 className="font-medium">Cómo proteger tu aplicación web contra ataques XSS</h4>
-                            <p className="text-sm text-muted-foreground mt-1">15K visualizaciones • hace 2 meses</p>
-                          </div>
+                          <h4 className="font-bold">{job.title}</h4>
+                          <p className="text-sm text-muted-foreground">
+                            {job.company} • {job.period}
+                          </p>
+                          <p className="text-muted-foreground">{job.description}</p>
                         </motion.div>
-                        <Button className="w-full bg-red-600 hover:bg-red-700 button-hover" asChild>
-                          <Link href="https://youtube.com/@tunombre" target="_blank">
-                            <Youtube className="mr-2 h-4 w-4" />
-                            Visitar canal
-                          </Link>
-                        </Button>
-                      </div>
+                      ))}
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                  ))}
+                </motion.div>
 
-              {/* Blog */}
-              <motion.div variants={itemFadeIn} whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
-                <Card className="card-hover border-red-100 dark:border-red-900/50">
-                  <CardContent className="p-6">
-                    <div className="space-y-6">
-                      <div className="flex items-center gap-4">
-                        <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full">
-                          <FileCode className="h-6 w-6 text-red-600" />
+                {/* Indicators */}
+                <div className="flex justify-center mt-4 space-x-2">
+                  {experienceGroups.map((_, index) => (
+                    <button
+                      key={index}
+                      className={`w-2 h-2 rounded-full transition-colors ${index === currentExperienceIndex ? "bg-red-500" : "bg-red-200"
+                        }`}
+                      onClick={() => setCurrentExperienceIndex(index)}
+                    />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section id="habilidades" className="py-16 container">
+        <div className="space-y-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeIn}
+            className="space-y-2 text-center"
+          >
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">
+              Mis habilidades
+            </h2>
+            <p className="text-muted-foreground">
+              Competencias en desarrollo, ciberseguridad y creación de contenido
+            </p>
+          </motion.div>
+
+          <Tabs defaultValue="development" className="w-full">
+            <TabsList className="grid w-full grid-cols-3 bg-red-50 dark:bg-red-950/20">
+              <TabsTrigger
+                value="development"
+                className="data-[state=active]:bg-red-600 data-[state=active]:text-white"
+              >
+                <Code className="mr-2 h-4 w-4" />
+                Desarrollo
+              </TabsTrigger>
+              <TabsTrigger value="security" className="data-[state=active]:bg-red-600 data-[state=active]:text-white">
+                <ShieldCheck className="mr-2 h-4 w-4" />
+                Ciberseguridad
+              </TabsTrigger>
+              <TabsTrigger value="content" className="data-[state=active]:bg-red-600 data-[state=active]:text-white">
+                <Youtube className="mr-2 h-4 w-4" />
+                Contenido
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="development" className="mt-6">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+                className="grid grid-cols-1 md:grid-cols-3 gap-6"
+              >
+                {[
+                  {
+                    icon: <Globe className="h-6 w-6 text-red-600" />,
+                    title: "Desarrollo Web",
+                    subtitle: "Frontend & Backend",
+                    skills: ["HTML/CSS", "JavaScript", "React", "Node.js", "Next.js", "TypeScript"],
+                  },
+                  {
+                    icon: <MonitorSmartphone className="h-6 w-6 text-red-600" />,
+                    title: "Desarrollo Móvil",
+                    subtitle: "Apps nativas e híbridas",
+                    skills: ["React Native", "Flutter", "Swift", "Kotlin"],
+                  },
+                  {
+                    icon: <Database className="h-6 w-6 text-red-600" />,
+                    title: "Bases de Datos",
+                    subtitle: "SQL & NoSQL",
+                    skills: ["PostgreSQL", "MySQL", "MongoDB", "Firebase"],
+                  },
+                ].map((category, i) => (
+                  <motion.div key={i} variants={itemFadeIn} whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
+                    <Card className="card-hover border-red-100 dark:border-red-900/50">
+                      <CardContent className="pt-6">
+                        <div className="flex items-center gap-4">
+                          <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full">{category.icon}</div>
+                          <div>
+                            <h3 className="font-bold">{category.title}</h3>
+                            <p className="text-sm text-muted-foreground">{category.subtitle}</p>
+                          </div>
                         </div>
-                        <div>
-                          <h3 className="font-bold text-xl">Blog Técnico</h3>
-                          <p className="text-sm text-muted-foreground">Artículos y guías detalladas</p>
-                        </div>
-                      </div>
-                      <div className="space-y-4">
-                        <div className="space-y-4">
-                          {[
-                            {
-                              category: "Ciberseguridad",
-                              title: "Implementando autenticación segura en aplicaciones modernas",
-                              date: "15 de marzo, 2023",
-                            },
-                            {
-                              category: "Desarrollo",
-                              title: "Mejores prácticas para el desarrollo de APIs seguras",
-                              date: "2 de febrero, 2023",
-                            },
-                          ].map((article, i) => (
-                            <motion.div
-                              key={i}
-                              whileHover={{ x: 5 }}
-                              transition={{ duration: 0.2 }}
-                              className="border rounded-lg p-4 border-red-100 dark:border-red-900/50"
+                        <div className="mt-4 space-y-2">
+                          {category.skills.map((skill) => (
+                            <Badge
+                              key={skill}
+                              className="mr-1 bg-red-100 hover:bg-red-200 text-red-800 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50"
                             >
-                              <Badge className="mb-2 bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">
-                                {article.category}
-                              </Badge>
-                              <h4 className="font-medium">{article.title}</h4>
-                              <p className="text-sm text-muted-foreground mt-1">Publicado el {article.date}</p>
-                            </motion.div>
+                              {skill}
+                            </Badge>
                           ))}
                         </div>
-                        <Button className="w-full bg-red-600 hover:bg-red-700 button-hover" asChild>
-                          <Link href="https://blog.tunombre.com" target="_blank">
-                            <FileCode className="mr-2 h-4 w-4" />
-                            Leer artículos
-                          </Link>
-                        </Button>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </TabsContent>
+            <TabsContent value="security" className="mt-6">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+                className="grid grid-cols-1 md:grid-cols-3 gap-6"
+              >
+                {[
+                  {
+                    icon: <Lock className="h-6 w-6 text-red-600" />,
+                    title: "Seguridad Ofensiva",
+                    subtitle: "Pentesting & Ethical Hacking",
+                    skills: ["Pentesting Web", "OWASP Top 10", "Burp Suite", "Metasploit"],
+                  },
+                  {
+                    icon: <ShieldCheck className="h-6 w-6 text-red-600" />,
+                    title: "Seguridad Defensiva",
+                    subtitle: "Protección & Monitoreo",
+                    skills: ["Firewall", "IDS/IPS", "SIEM", "Análisis de Malware"],
+                  },
+                  {
+                    icon: <FileCode className="h-6 w-6 text-red-600" />,
+                    title: "DevSecOps",
+                    subtitle: "Seguridad en CI/CD",
+                    skills: ["SAST/DAST", "Análisis de Dependencias", "Contenedores Seguros", "IaC"],
+                  },
+                ].map((category, i) => (
+                  <motion.div key={i} variants={itemFadeIn} whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
+                    <Card className="card-hover border-red-100 dark:border-red-900/50">
+                      <CardContent className="pt-6">
+                        <div className="flex items-center gap-4">
+                          <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full">{category.icon}</div>
+                          <div>
+                            <h3 className="font-bold">{category.title}</h3>
+                            <p className="text-sm text-muted-foreground">{category.subtitle}</p>
+                          </div>
+                        </div>
+                        <div className="mt-4 space-y-2">
+                          {category.skills.map((skill) => (
+                            <Badge
+                              key={skill}
+                              className="mr-1 bg-red-100 hover:bg-red-200 text-red-800 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50"
+                            >
+                              {skill}
+                            </Badge>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </TabsContent>
+            <TabsContent value="content" className="mt-6">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+                className="grid grid-cols-1 md:grid-cols-3 gap-6"
+              >
+                {[
+                  {
+                    icon: <Youtube className="h-6 w-6 text-red-600" />,
+                    title: "Producción de Video",
+                    subtitle: "Creacción & Edición",
+                    skills: ["Guionización", "Edición de Video", "Animación", "Presentación"],
+                  },
+                  {
+                    icon: <Terminal className="h-6 w-6 text-red-600" />,
+                    title: "Streaming & Podcasting",
+                    subtitle: " Transmisión & Audio ",
+                    skills: [" OBS Studio", "Audio Mixing", "Plataformas de Streaming", "Marketing de Contenidos"],
+                  },
+                  {
+                    icon: <Globe className="h-6 w-6 text-red-600" />,
+                    title: "Marketing Digital",
+                    subtitle: "Promoción & Engagement",
+                    skills: ["SEO", "Redes Sociales", "Email Marketing", "Análisis de Audiencia"],
+                  },
+                ].map((category, i) => (
+                  <motion.div key={i} variants={itemFadeIn} whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
+                    <Card className="card-hover border-red-100 dark:border-red-900/50">
+                      <CardContent className="pt-6">
+                        <div className="flex items-center gap-4">
+                          <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full">{category.icon}</div>
+                          <div>
+                            <h3 className="font-bold">{category.title}</h3>
+                            <p className="text-sm text-muted-foreground">{category.subtitle}</p>
+                          </div>
+                        </div>
+                        <div className="mt-4 space-y-2">
+                          {category.skills.map((skill) => (
+                            <Badge
+                              key={skill}
+                              className="mr-1 bg-red-100 hover:bg-red-200 text-red-800 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50"
+                            >
+                              {skill}
+                            </Badge>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="proyectos" className="relative py-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-red-50/50 to-white/50 dark:from-red-950/10 dark:to-background/50 -z-10"></div>
+        <div className="container space-y-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeIn}
+            className="space-y-2 text-center"
+          >
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">
+              Proyectos destacados
+            </h2>
+            <p className="text-muted-foreground">Una selección de mis trabajos más relevantes</p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            <ProjectPreviewCard
+              title="Deshline"
+              description="Tienda online de camisetas de fútbol. Desarrollo de plataforma e-commerce con React, Node.js y Supabase."
+              url="https://www.deshline.cl"
+              category="E-commerce"
+              tech={["React", "Node.js", "Supabase", "MongoDB"]}
+              variant={itemFadeIn}
+              previewType="deshline"
+            />
+
+            <ProjectPreviewCard
+              title="Electromecanica Hermanos Diaz"
+              description="Sitio corporativo para empresa de tableros eléctricos industriales con certificación de calidad."
+              url="https://www.electromecanicahermanosdiaz.cl"
+              category="Web Corporativo"
+              tech={["HTML", "CSS", "JavaScript"]}
+              variant={itemFadeIn}
+              previewType="electromecanica"
+            />
+
+            <ProjectPreviewCard
+              title="VitalMove Global"
+              description="Portafolio profesional de desarrollador con especialización en ciberseguridad y creación de contenido."
+              url="https://www.vitalmoveglobal.com"
+              category="Portafolio Personal"
+              tech={["Next.js", "React", "TypeScript", "Tailwind CSS"]}
+              variant={itemFadeIn}
+              previewType="vitalmove"
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="flex justify-center mt-8"
+          >
+            <Button
+              variant="outline"
+              asChild
+              className="button-hover border-red-200 dark:border-red-900/50 hover:bg-red-50 dark:hover:bg-red-950/50"
+            >
+              <Link href="https://github.com/Bluxterz" target="_blank">
+                <Github className="mr-2 h-4 w-4" />
+                Ver más proyectos en GitHub
+              </Link>
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Content Creation Section */}
+      <section id="contenido" className="py-16 container">
+        <div className="space-y-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeIn}
+            className="space-y-2 text-center"
+          >
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">
+              Creación de contenido
+            </h2>
+            <p className="text-muted-foreground">Streaming en vivo, Gaming, Sketches y Entretenimiento Digital</p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
+            {/* YouTube Channel */}
+            <motion.div variants={itemFadeIn} whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
+              <Card className="card-hover border-red-100 dark:border-red-900/50">
+                <CardContent className="p-6">
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full">
+                        <Youtube className="h-6 w-6 text-red-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-xl">Canal de YouTube</h3>
+                        <p className="text-sm text-muted-foreground">Videos de gaming, sketches cómicos y contenido de entretenimiento</p>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contacto" className="relative py-16">
-          <div className="absolute inset-0 bg-gradient-to-br from-red-50/50 to-white/50 dark:from-red-950/10 dark:to-background/50 -z-10"></div>
-          <div className="container space-y-8">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeIn}
-              className="space-y-2 text-center"
-            >
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">Contacto</h2>
-              <p className="text-muted-foreground">¿Interesado en trabajar juntos? ¡Hablemos!</p>
-            </motion.div>
-
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
-            >
-              <motion.div variants={itemFadeIn}>
-                <Card className="card-hover border-red-100 dark:border-red-900/50">
-                  <CardContent className="p-6">
-                    <form className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="name">Nombre</Label>
-                          <Input
-                            id="name"
-                            placeholder="Tu nombre"
-                            className="border-red-200 focus-visible:ring-red-500 dark:border-red-900/50"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="email">Email</Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            placeholder="tu@email.com"
-                            className="border-red-200 focus-visible:ring-red-500 dark:border-red-900/50"
-                          />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="subject">Asunto</Label>
-                        <Input
-                          id="subject"
-                          placeholder="¿En qué puedo ayudarte?"
-                          className="border-red-200 focus-visible:ring-red-500 dark:border-red-900/50"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="message">Mensaje</Label>
-                        <Textarea
-                          id="message"
-                          placeholder="Escribe tu mensaje aquí..."
-                          rows={4}
-                          className="border-red-200 focus-visible:ring-red-500 dark:border-red-900/50"
-                        />
-                      </div>
-                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                        <Button type="submit" className="w-full bg-red-600 hover:bg-red-700 button-hover">
-                          Enviar mensaje
-                        </Button>
-                      </motion.div>
-                    </form>
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              <motion.div variants={itemFadeIn} className="space-y-6">
-                <Card className="card-hover border-red-100 dark:border-red-900/50">
-                  <CardContent className="p-6">
                     <div className="space-y-4">
-                      <h3 className="font-bold text-xl">Información de contacto</h3>
-                      <div className="space-y-3">
+                      <motion.div
+                        whileHover={{ scale: 1.03 }}
+                        transition={{ duration: 0.2 }}
+                        className="border rounded-lg overflow-hidden border-red-100 dark:border-red-900/50"
+                      >
+                        <div className="aspect-video relative">
+                          <Image
+                            src="/img/image.png?height=200&width=400"
+                            alt="Video tutorial"
+                            fill
+                            className="object-cover"
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="bg-red-600/90 p-4 rounded-full">
+                              <Youtube className="h-8 w-8 text-white" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="p-4">
+                          <h4 className="font-medium">Último video: Gaming y sketches de humor</h4>
+                          <p className="text-sm text-muted-foreground mt-1">Videos regulares de entretenimiento y gaming</p>
+                        </div>
+                      </motion.div>
+                      <Button className="w-full bg-red-600 hover:bg-red-700 button-hover" asChild>
+                        <Link href="https://youtube.com/@Bluxterz" target="_blank">
+                          <Youtube className="mr-2 h-4 w-4" />
+                          Visitar canal
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Blog */}
+            <motion.div variants={itemFadeIn} whileHover={{ y: -5 }} transition={{ duration: 0.2 }}>
+              <Card className="card-hover border-red-100 dark:border-red-900/50">
+                <CardContent className="p-6">
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-full">
+                        <FileCode className="h-6 w-6 text-red-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-xl">Streaming & Redes Sociales</h3>
+                        <p className="text-sm text-muted-foreground">Twitch, Kick, Instagram, TikTok y Facebook</p>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="space-y-4">
                         {[
-                          { icon: <Mail className="h-5 w-5 text-red-500" />, text: "contacto@tunombre.com" },
-                          { icon: <Linkedin className="h-5 w-5 text-red-500" />, text: "linkedin.com/in/tunombre" },
-                          { icon: <Twitter className="h-5 w-5 text-red-500" />, text: "@tunombre" },
-                        ].map((contact, i) => (
+                          {
+                            platform: "Twitch",
+                            title: "Streams en vivo de gaming y entretenimiento",
+                            description: "Transmisiones regulares con interacción en tiempo real",
+                          },
+                          {
+                            platform: "TikTok/Instagram",
+                            title: "Sketches cómicos y clips destacados",
+                            description: "Contenido viral de humor y momentos divertidos",
+                          },
+                        ].map((content, i) => (
                           <motion.div
                             key={i}
-                            className="flex items-center gap-3"
                             whileHover={{ x: 5 }}
                             transition={{ duration: 0.2 }}
+                            className="border rounded-lg p-4 border-red-100 dark:border-red-900/50"
                           >
-                            {contact.icon}
-                            <p>{contact.text}</p>
+                            <Badge className="mb-2 bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">
+                              {content.platform}
+                            </Badge>
+                            <h4 className="font-medium">{content.title}</h4>
+                            <p className="text-sm text-muted-foreground mt-1">{content.description}</p>
                           </motion.div>
                         ))}
                       </div>
+                      <Button className="w-full bg-red-600 hover:bg-red-700 button-hover" asChild>
+                        <Link href="https://twitch.tv/Bluxterz" target="_blank">
+                          <Terminal className="mr-2 h-4 w-4" />
+                          Ver streams
+                        </Link>
+                      </Button>
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
 
-                <Card className="card-hover border-red-100 dark:border-red-900/50">
-                  <CardContent className="p-6">
-                    <div className="space-y-4">
-                      <h3 className="font-bold text-xl">Disponibilidad</h3>
-                      <p className="text-muted-foreground">
-                        Actualmente estoy disponible para proyectos freelance, consultoría en ciberseguridad y
-                        colaboraciones para creación de contenido.
-                      </p>
-                      <div className="flex gap-2">
-                        <Badge
-                          variant="outline"
-                          className="bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-300"
-                        >
-                          Freelance
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-300"
-                        >
-                          Consultoría
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-300"
-                        >
-                          Contenido
-                        </Badge>
+      {/* Contact Section */}
+      <section id="contacto" className="relative py-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-red-50/50 to-white/50 dark:from-red-950/10 dark:to-background/50 -z-10"></div>
+        <div className="container space-y-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeIn}
+            className="space-y-2 text-center"
+          >
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl gradient-text">Contacto</h2>
+            <p className="text-muted-foreground">¿Interesado en trabajar juntos? ¡Hablemos!</p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
+          >
+            <motion.div variants={itemFadeIn}>
+              <Card className="card-hover border-red-100 dark:border-red-900/50">
+                <CardContent className="p-6">
+                  <form className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="name">Nombre</Label>
+                        <Input
+                          id="name"
+                          placeholder="Tu nombre"
+                          className="border-red-200 focus-visible:ring-red-500 dark:border-red-900/50"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="email">Email</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="tu@email.com"
+                          className="border-red-200 focus-visible:ring-red-500 dark:border-red-900/50"
+                        />
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                    <div className="space-y-2">
+                      <Label htmlFor="subject">Asunto</Label>
+                      <Input
+                        id="subject"
+                        placeholder="¿En qué puedo ayudarte?"
+                        className="border-red-200 focus-visible:ring-red-500 dark:border-red-900/50"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="message">Mensaje</Label>
+                      <Textarea
+                        id="message"
+                        placeholder="Escribe tu mensaje aquí..."
+                        rows={4}
+                        className="border-red-200 focus-visible:ring-red-500 dark:border-red-900/50"
+                      />
+                    </div>
+                    <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                      <Button type="submit" className="w-full bg-red-600 hover:bg-red-700 button-hover">
+                        Enviar mensaje
+                      </Button>
+                    </motion.div>
+                  </form>
+                </CardContent>
+              </Card>
             </motion.div>
-          </div>
-        </section>
 
-        {/* Footer */}
+            <motion.div variants={itemFadeIn} className="space-y-6">
+              <Card className="card-hover border-red-100 dark:border-red-900/50">
+                <CardContent className="p-6">
+                  <div className="space-y-4">
+                    <h3 className="font-bold text-xl">Información de contacto</h3>
+                    <div className="space-y-3">
+                      {[
+                        { icon: <Mail className="h-5 w-5 text-red-500" />, text: "matias.guzman.g.2001@gmail.com" },
+                        { icon: <Linkedin className="h-5 w-5 text-red-500" />, text: "linkedin.com/in/Bluxterz" },
+                        { icon: <Instagram className="h-5 w-5 text-red-500" />, text: "instagram.com/Bluxterz" },
+                      ].map((contact, i) => (
+                        <motion.div
+                          key={i}
+                          className="flex items-center gap-3"
+                          whileHover={{ x: 5 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          {contact.icon}
+                          <p>{contact.text}</p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="card-hover border-red-100 dark:border-red-900/50">
+                <CardContent className="p-6">
+                  <div className="space-y-4">
+                    <h3 className="font-bold text-xl">Disponibilidad</h3>
+                    <p className="text-muted-foreground">
+                      Actualmente estoy disponible para proyectos freelance, propuestas de trabajo y
+                      colaboraciones para creación de contenido.
+                    </p>
+                    <div className="flex gap-2">
+                      <Badge
+                        variant="outline"
+                        className="bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-300"
+                      >
+                        Freelance
+                      </Badge>
+                      <Badge
+                        variant="outline"
+                        className="bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-300"
+                      >
+                        Consultoría
+                      </Badge>
+                      <Badge
+                        variant="outline"
+                        className="bg-red-100 text-red-800 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-300"
+                      >
+                        Contenido
+                      </Badge>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
       <footer className="border-t border-red-100 dark:border-red-900/50 py-6 md:py-0">
         <div className="container flex flex-col md:flex-row items-center justify-between gap-4 md:h-16">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} TuNombre. Todos los derechos reservados.
+            © {new Date().getFullYear()} Bluxterz. Todos los derechos reservados.
           </p>
           <div className="flex gap-4">
             {[
-              { icon: <Github className="h-4 w-4" />, href: "https://github.com/tunombre", label: "GitHub" },
-              { icon: <Linkedin className="h-4 w-4" />, href: "https://linkedin.com/in/tunombre", label: "LinkedIn" },
-              { icon: <Twitter className="h-4 w-4" />, href: "https://twitter.com/tunombre", label: "Twitter" },
-              { icon: <Youtube className="h-4 w-4" />, href: "https://youtube.com/@tunombre", label: "YouTube" },
+              { icon: <Github className="h-4 w-4" />, href: "https://github.com/Bluxterz", label: "GitHub" },
+              { icon: <Instagram className="h-4 w-4" />, href: "https://instagram.com/Bluxterz", label: "Instagram" },
+              { icon: <Linkedin className="h-4 w-4" />, href: "https://linkedin.com/in/Bluxterz", label: "LinkedIn" },
+              { icon: <Twitter className="h-4 w-4" />, href: "https://twitter.com/Bluxterz", label: "Twitter" },
+              { icon: <Youtube className="h-4 w-4" />, href: "https://youtube.com/@Bluxterz", label: "YouTube" },
             ].map((social) => (
               <motion.div key={social.label} whileHover={{ y: -3 }} transition={{ duration: 0.2 }}>
                 <Link href={social.href} target="_blank" rel="noopener noreferrer">

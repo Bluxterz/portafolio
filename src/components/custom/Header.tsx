@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Button } from "@/src/components/ui/button"
+import { ShimmerButton } from "@/src/components/ui/shimmer-button"
 import Link from "next/link"
 import { Mail } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -108,12 +108,12 @@ export function Header() {
             transition={{ duration: 0.5 }}
             className="hidden md:block"
           >
-            <Button asChild size="sm" className="bg-red-600 hover:bg-red-700 button-hover">
-              <Link href="/contacto">
+            <Link href="/contacto">
+              <ShimmerButton className="text-sm font-medium">
                 <Mail className="mr-2 h-4 w-4" />
                 Contactar
-              </Link>
-            </Button>
+              </ShimmerButton>
+            </Link>
           </motion.div>
           <MobileNav />
         </div>

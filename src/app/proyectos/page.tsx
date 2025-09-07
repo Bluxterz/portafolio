@@ -296,8 +296,8 @@ export default function Proyectos() {
             Todos los proyectos
           </motion.h2>
           
-          <Tabs defaultValue="Todos" className="w-full">
-            <TabsList className="grid grid-cols-3 md:grid-cols-7 bg-red-50 dark:bg-red-950/20 mb-8">
+          <Tabs defaultValue="Todos" className="w-full items-center">
+            <TabsList className="grid grid-cols-3 md:grid-cols-7 bg-red-50 dark:bg-red-950/20 mb-8 ">
               {categories.map((category) => (
                 <TabsTrigger
                   key={category}
